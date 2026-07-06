@@ -26,7 +26,6 @@ warnings.filterwarnings("ignore")
 
 st.set_page_config(
     page_title="MNIST: PCA + K-Means + SVM",
-    page_icon="🔢",
     layout="wide",
 )
 
@@ -155,7 +154,7 @@ def graficar_matriz_confusion(y_true, y_pred):
 # INTERFAZ
 # ============================================================
 
-st.title("🔢 Clasificacion de Digitos MNIST con PCA, K-Means y SVM")
+st.title("Clasificacion de Digitos MNIST con PCA, K-Means y SVM")
 st.caption("Arleth Adyani Chevez Bonilla — Cuenta: 20221900251")
 st.markdown("---")
 
@@ -174,7 +173,7 @@ if df is None:
     )
     st.stop()
 
-st.sidebar.header("⚙️ Configuracion")
+st.sidebar.header("Configuracion")
 
 n_components = st.sidebar.slider(
     "Numero de componentes PCA", min_value=2, max_value=100, value=30, step=1,
@@ -194,7 +193,7 @@ n_muestra = st.sidebar.select_slider(
     help="Tu dataset tiene 5000 imagenes en total. Reduce este valor si la aplicacion tarda demasiado en entrenar."
 )
 
-entrenar = st.sidebar.button("🚀 Entrenar modelo", use_container_width=True)
+entrenar = st.sidebar.button("Entrenar modelo", use_container_width=True)
 
 if "resultados" not in st.session_state:
     st.session_state["resultados"] = None
@@ -236,7 +235,7 @@ else:
     y_pred_test = resultados["y_pred_test"]
 
     # -------------------- 1. PCA --------------------
-    st.header("1️⃣ PCA - Reduccion de dimensionalidad")
+    st.header("1. PCA - Reduccion de dimensionalidad")
 
     col1, col2, col3 = st.columns(3)
     col1.metric("Dimensiones originales", "784")
@@ -254,7 +253,7 @@ else:
     ))
 
     # -------------------- 2. K-Means --------------------
-    st.header("2️⃣ K-Means - Clustering")
+    st.header("2. K-Means - Clustering")
 
     clusters_train = resultados["clusters_train"]
     sil = silhouette_score(resultados["X_train_pca"], clusters_train)
@@ -278,7 +277,7 @@ else:
     st.dataframe(tabla_cruzada, use_container_width=True)
 
     # -------------------- 3. SVM --------------------
-    st.header("3️⃣ SVM - Clasificacion supervisada")
+    st.header("3. SVM - Clasificacion supervisada")
     st.caption(f"Evaluado sobre el conjunto de prueba ({len(y_test)} muestras que el modelo no vio en entrenamiento)")
 
     accuracy_test = accuracy_score(y_test, y_pred_test)
@@ -295,7 +294,7 @@ else:
     st.dataframe(pd.DataFrame(reporte).transpose().round(4), use_container_width=True)
 
     # -------------------- 4. Prediccion individual --------------------
-    st.header("4️⃣ Clasificar una imagen especifica")
+    st.header("4. Clasificar una imagen especifica")
     st.caption("Elige una imagen del conjunto de prueba y observa la clase predicha por el SVM.")
 
     indice = st.slider("Indice de la imagen de prueba", 0, len(X_test) - 1, 0)
@@ -322,7 +321,7 @@ else:
             st.error("El modelo se equivoco con esta imagen.")
 
     # -------------------- 5. Efecto de la reduccion de dimensionalidad --------------------
-    st.header("5️⃣ Efecto del numero de componentes PCA sobre el SVM")
+    st.header("5. Efecto del numero de componentes PCA sobre el SVM")
     st.caption("Se repite el entrenamiento de SVM con distintos numeros de componentes para comparar el desempeno.")
 
     if st.button("Ejecutar comparacion (puede tardar un poco)"):
